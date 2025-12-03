@@ -4,9 +4,12 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.io.FileWriter;
 import java.io.File;
+<<<<<<< HEAD
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Arrays;
+=======
+>>>>>>> 0e784d593c0887616cf25a42837479cfd65fb046
 
 import engine.core.MarioGame;
 import engine.core.MarioResult;
@@ -118,7 +121,11 @@ public class PlayLevel {
                 "astar_robin"
         };
 
+<<<<<<< HEAD
         int numLevels = 1000;
+=======
+        int numLevels = 100;
+>>>>>>> 0e784d593c0887616cf25a42837479cfd65fb046
 
         // Make results/ folder if it doesn't exist
         File resultsDir = new File("results");
