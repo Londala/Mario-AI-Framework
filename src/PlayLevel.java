@@ -4,6 +4,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.io.FileWriter;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Arrays;
 
 import engine.core.MarioGame;
 import engine.core.MarioResult;
@@ -115,7 +118,7 @@ public class PlayLevel {
                 "astar_robin"
         };
 
-        int numLevels = 100;
+        int numLevels = 1000;
 
         // Make results/ folder if it doesn't exist
         File resultsDir = new File("results");
@@ -124,7 +127,7 @@ public class PlayLevel {
         }
 
         // ==== Loop over each agent ====
-        for (int a = 0; a < agents.length; a++) {
+        for (int a = 0; a < agentNames.length ; a++) {
 
             MarioAgent agent = agents[a];
             String agentName = agentNames[a];
@@ -132,8 +135,12 @@ public class PlayLevel {
             long timestamp = System.currentTimeMillis();
             String fileName = "results_" + agentName + "_" + timestamp + ".csv";
             File csvFile = new File(resultsDir, fileName);
+            Set<Integer> levelSetRandom = new HashSet<>(Arrays.asList(101, 482));
+            Set<Integer> levelSetAstarRobin = new HashSet<>(Arrays.asList(409, 261));
+            Set<Integer> levelSetNothing = new HashSet<>(Arrays.asList(9));
+            Set<Integer> levelSetGlennHartmann = new HashSet<>(Arrays.asList(27, 40));
 
-           
+
             double totalScore = 0.0;
             double totalCompletion = 0.0;
             int totalCoins = 0;
@@ -150,14 +157,20 @@ public class PlayLevel {
                 for (int i = 1; i <= numLevels; i++) {
                     String level = String.format("./levels/ge/lvl-%d.txt", i);
 
-                    MarioResult result = game.runGame(
-                            agent,
-                            getLevel(level),
-                            25,   // seed (vary slightly per run)
-                            0,
-                            false
-                            
-                    );
+                    MarioResult result;
+                    if (
+                        (levelSetRandom.contains(i) && agentName.equals("random"))
+                        || (levelSetAstarRobin.contains(i) && agentName.equals("astar_robin"))
+                        || (levelSetNothing.contains(i) && agentName.equals("donothing"))
+                        || (levelSetGlennHartmann.contains(i) && agentName.equals("glennHartmann"))
+                    
+                    ) {
+                        result = game.runGame(agent, getLevel(level), 25, 0, true, 100);
+                        //result = game.runGame(agent, getLevel(level), 25);
+                    } else {
+                        result = game.runGame(agent, getLevel(level), 25);
+                    }
+                    
                     ScoreBoard runIterationScoreBoard = new ScoreBoard(agentName, level, computeScore(result), result);
 
                    
