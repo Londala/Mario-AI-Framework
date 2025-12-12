@@ -46,7 +46,7 @@ public class PlayLevel {
         int killScore = Math.min(result.getKillsTotal(), 25) * 20;
         int styleBonus = 5 * (result.getKillsByStomp() + result.getKillsByFire() + result.getKillsByShell());
         int lifeBonus = result.getCurrentLives() * 100;
-        int remainingTimeBonus = result.getRemainingTime() * 10;
+        int remainingTimeBonus = result.getRemainingTime() * 3 / 1000;
         int mushroomBonus = result.getNumCollectedMushrooms() * 20;
         int marioModeBonus = result.getMarioMode() * 20;
 
