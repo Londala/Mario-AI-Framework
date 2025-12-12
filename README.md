@@ -1,8 +1,3 @@
-
-## Basic info
-
-Fork created for _Artificial Intelligence <3 Games: Procedural Content_ lecture by Jakub Kowalski, University of Wrocław, 2025.
-
 ## Quick setup
 
 1. Java required. IntelliJ IDEA recommended.
